@@ -7,9 +7,11 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/todo')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var todo = require('./routes/todo');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const todo = require('./routes/todo');
+const {authUser} = require('./middlewares/auth')
+
 
 var app = express();
 
@@ -33,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/todo', todo);
+app.use('/todo',authUser,todo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,7 +52,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 module.exports = app;
