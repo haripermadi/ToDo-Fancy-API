@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+</head>
+<body>
+  <h1>Sign in</h1>
+  <!-- <form method="POST">
+      username<input id="username" type = "text"><br>
+      email<input id="email" type = "text"><br>
+      password <input id="password" type = "text"><br>
+      <button id="signin">Sign In</button>
+  </form> -->
+  <fb:login-button 
+      scope="public_profile,email"
+      onlogin="checkLoginState();">
+  </fb:login-button>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/loginfb.js"></script>
+    
+</body>
+</html>
