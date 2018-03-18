@@ -2,7 +2,8 @@ const Todo = require('../models/todo')
 
 module.exports={
   getTodo:(req,res)=>{
-    Todo.find().exec().then(listTodo=>{
+    Todo.find()
+    .exec().then(listTodo=>{
         res.status(200).json({
           message:"success",
           listTodo
@@ -14,12 +15,13 @@ module.exports={
   },
   addTodo:(req,res)=>{
     const todo = new Todo(req.body)
+    console.log("======",todo);
     todo.save().then(data=>{
       res.status(200).json({
         message:"todo created",
         todo:data
       })
-    }).then(error=>{
+    }).catch(error=>{
       res.status(400).json({
         message:"error",
         error

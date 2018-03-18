@@ -11,8 +11,7 @@ module.exports={
     let newUser ={
       name:req.body.name,
       email:req.body.email,
-      password:hash,
-      role : 'user'
+      password:hash
     }
     User.findOne({
       email:req.body.email
@@ -49,13 +48,13 @@ module.exports={
       email:req.body.email
     }).then(dataUser=>{
       if(dataUser){
-        console.log(dataUser)
+        console.log("ini data user===",dataUser)
         let checkPass = bcrypt.compareSync(req.body.password,dataUser.password)
         if(checkPass){
-          let token = jwt.sign({id:dataUser._id,name:dataUser.name,email:dataUser.email,role:dataUser.role},'secret')
+          let token = jwt.sign({id:dataUser._id,email:dataUser.email},'secret')
           res.status(200).json({
             message:"login success",
-            user : token
+            token
           })
         }else{
           res.status(400).json({

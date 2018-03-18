@@ -4,20 +4,16 @@ require('dotenv').load();
 
 module.exports={
   authUser : function(req,res,next){
-    let token = req.headers.token
-    if(token){
+    console.log("masuk middleware",req.headers)
+    
+    try{
+      let token = req.headers.token
       let decoded = jwt.verify(token,'secret')
-      console.log("ini decoded:",decoded)
-      if(decoded.role === 'user'){
-        next()
-      }else{
-        res.status(403).json({
-          message:"You don't have access!!!"
-        })
-      }
-    }else{
-      res.status(403).json({
-        message:"You don't have access!! login first!"
+      next()
+    }
+    catch(err){
+      res.status(400).json({
+        err
       })
     }
   }
