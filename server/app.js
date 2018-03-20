@@ -8,13 +8,12 @@ var cors = require('cors')
 
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/todo')
+mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')
 
 const {authUser} = require('./middlewares/auth')
 const index = require('./routes/index');
 const users = require('./routes/users');
 const todo = require('./routes/todo');
-const fb = require('./routes/fb')
 
 
 
@@ -38,9 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/fb', fb);
 app.use('/users', users);
-app.use('/todo',authUser,todo);
+app.use('/todo',todo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

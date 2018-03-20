@@ -11,11 +11,8 @@ const userSchema = new Schema({
     required: [true,'Email required!'],
     unique: true
   },
-  password: {
-    type: String,
-    min:[6,'Too short!, min 6 character'],
-    max: [12,'Too long, max 12 character']
-  },
+  password:String,
+  fbId:String,
   createdAt: { 
     type: Date,
     default: Date.now
