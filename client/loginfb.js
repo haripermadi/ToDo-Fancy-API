@@ -19,13 +19,30 @@ window.fbAsyncInit = function() {
   }(document, 'script', 'facebook-jssdk'));
 
 
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
+
 
 function statusChangeCallback(response) {
   if(response.status === 'connected') {
-      testAPI(response)
+    console.log("log in and authenticated")
+    axios({
+      method:'post',
+      url:'http://localhost:3000/users/fbsignin',
+      headers :{
+        fb_token:response.authResponse.accessToken
+      }
+    }).then(function(resLogin){
+        console.log("resLogin",JSON.stringify(resLogin));
+        localStorage.setItem('token',resLogin.data.data.token)
+        localStorage.setItem('userId',resLogin.data.data._id)
+        localStorage.setItem('fbId',resLogin.data.data.fbId)
+        location.reload();
+        
+    }).catch(function(err){
+      console.log(err)
+    })
+      
+  }else{
+    console.log('not authenticated')
   }
 }
 
@@ -36,22 +53,15 @@ function checkLoginState() {
   });
 }
 
-function testAPI(responseStatCb){
-  FB.api('/me', {fields: ['name', 'email']}, function (res){
-    console.log(res)
-    console.log(responseStatCb)
-    axios.post('http://localhost:3000/fb', {
-        facebook_id: res.id,
-        email: res.email,
-        username: res.name,
-        fbToken: responseStatCb.authResponse.accessToken
-    })
-    .then(resLogin => {
-        console.log(resLogin)
-        // window.location.href = 'todo.html'
-    })
-    .catch(err => {
-        console.log(err)
-    })
-  })
+function logout() {
+  console.log('masuk sini')
+  FB.logout(function(response) {
+    localStorage.clear()
+    console.log('user log out fb')
+    statusChangeCallback(response)
+  }) 
+  alert('hey')
+  
+  
 }
+

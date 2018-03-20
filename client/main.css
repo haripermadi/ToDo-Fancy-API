@@ -1,0 +1,39 @@
+blockquote {
+  background-color: #f7b733;
+  color: white;
+  font-weight: bold;
+}
+
+#jumbo {
+  background-color: #4abdac
+}
+
+.jumbotron .container{
+  min-height: 450px;
+  
+  
+}
+
+.jumbotron p {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.jumbotron a{
+  background-color: #f7b733;
+  color: white;
+}
+
+#navstyle{
+  margin-bottom:0px;
+  background-color: #dfdcf3;
+  
+}
+
+#navstyle a {
+  color:#fc4a1a;
+}
+
+
+
+

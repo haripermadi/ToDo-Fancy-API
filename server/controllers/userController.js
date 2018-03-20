@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 const jwt = require('jsonwebtoken');
+const FB        = require('fb')
 require('dotenv').load();
 
 module.exports={
@@ -46,7 +47,9 @@ module.exports={
     console.log("ini sign in ",req.body)
     User.findOne({
       email:req.body.email
-    }).then(dataUser=>{
+    })
+    .exec()
+    .then(dataUser=>{
       if(dataUser){
         console.log("ini data user===",dataUser)
         let checkPass = bcrypt.compareSync(req.body.password,dataUser.password)
@@ -54,14 +57,142 @@ module.exports={
           let token = jwt.sign({id:dataUser._id,email:dataUser.email},'secret')
           res.status(200).json({
             message:"login success",
-            token
+            data:{
+              id:dataUser._id,
+              name:dataUser.name,
+              email:dataUser.email,
+              fbId :null,
+              token :token
+            }
           })
         }else{
           res.status(400).json({
             message:"email/password is wrong!!"
           })
         }
+      }else{
+        res.status(400).json({
+          message:"sign in failed!"
+        })
       }
+    })
+
+  },
+  // signInFb : (req,res)=>{
+  //   FB.api('me',{fields:['id','name','email'],access_token:req.headers.fb_token},(userFbToken)=>{
+  //     if(userFbToken){
+  //       User.create({
+  //         name:userFbToken.name,
+  //         email:userFbToken.email,
+  //         password: null,
+  //         fbId : userFbToken.id
+          
+  //       },(err,newUser)=>{
+  //         if(err){
+  //           User.findOne({
+  //             email:userFbToken.email,
+  //             fbId: userFbToken.id
+  //           })
+  //           .exec()
+  //           .then(user=>{
+  //             let token = jwt.sign({id:newUser._id},'secret')
+  //             res.status(200).json({
+  //               message:"login with facebook success",
+  //               data: ({
+  //                 _id: user._id,
+  //                 fbId : user.fbId,
+  //                 name:user.name,
+  //                 email: user.email,
+  //                 token:token
+  //               })
+  //             })
+  //           }).catch(error=>{
+  //             res.status(500).json({
+  //               message:"failed to connect with facebook"
+  //             })
+  //           })
+  //         }else{
+  //           let token = jwt.sign({id:newUser._id},'secret')
+  //             res.status(200).json({
+  //               message:"login with facebook success",
+  //               data: ({
+  //                 _id: user._id,
+  //                 fbId : user.fbId,
+  //                 name:user.name,
+  //                 email: user.email,
+  //                 token:token
+  //               })
+  //             })
+  //         }
+  //       })
+  //     }else{
+  //       res.status(500).json({
+  //         message : `Failed to connect with facebook !`,
+  //         data    : {}
+  //       })
+  //     }
+  //   })
+  // },
+  signInFb : (req,res)=>{
+    FB.api('me',{fields:['id','name','email'],access_token:req.headers.fb_token},(userFbToken)=>{
+      if(userFbToken){
+        User.findOne({
+          email:userFbToken.email,
+          // fbId: userFbToken.id
+        })
+        .exec()
+        .then(user=>{
+          if(user == null){
+            User.create({
+              name:userFbToken.name,
+              email:userFbToken.email,
+              password: null,
+              fbId : userFbToken.id
+            },(err,newUser)=>{
+              if(!err){
+                let token = jwt.sign({id:newUser._id},'secret')
+                res.status(200).json({
+                message:"login with facebook success",
+                data: ({
+                  _id: newUser._id,
+                  fbId : newUser.fbId,
+                  name:newUser.name,
+                  email: newUser.email,
+                  token:token
+                })
+              })
+              }else{
+                res.status(400).json({
+                  message:"something wrong"
+                })
+              }
+            })
+          }else{
+            let token = jwt.sign({id:user._id},'secret')
+            res.status(200).json({
+              message:"login with facebook success",
+              data: ({
+                _id: user._id,
+                fbId : user.fbId,
+                name:user.name,
+                email: user.email,
+                token:token
+              })
+            })
+          }
+
+        })
+      }else{
+        res.status(500).json({
+          message : `Failed to connect with facebook !`,
+          data    : {}
+        })
+      }
+    })
+  },
+  testJwt : (req,res)=>{
+    res.status(200).json({
+      message:"testing jwt"
     })
 
   }

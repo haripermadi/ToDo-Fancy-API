@@ -8,7 +8,6 @@ const todoSchema = new Schema({
     type:Boolean,
     default: false
   },
-  priority: Number,
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -17,6 +16,7 @@ const todoSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  updateAt : Date,
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
