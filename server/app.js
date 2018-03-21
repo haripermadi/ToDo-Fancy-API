@@ -8,7 +8,8 @@ var cors = require('cors')
 
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')
+// mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')
+mongoose.connect('mongodb://localhost:27017/todo')
 
 const {authUser} = require('./middlewares/auth')
 const index = require('./routes/index');
@@ -38,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/todo',todo);
+app.use('/todo',authUser,todo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
