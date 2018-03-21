@@ -34,6 +34,9 @@ window.onload = function(){
         axios({
           method:'get',
           url:`http://localhost:3000/todo/${this.userId}`,
+          headers:{
+            token:this.jwtToken
+          }
         }).then(function(response){
             console.log("respon gettodo",(response.data.listTodo)); 
             self.todos=response.data.listTodo.filter(todo => todo.status == false)
@@ -44,18 +47,21 @@ window.onload = function(){
       },
       addTodo: function(){
         let token = this.jwtToken
+        let self= this
         if(token){
           axios({
             method:'post',
             url:'http://localhost:3000/todo',
             headers:{
-              id:this.userId
+              id:this.userId,
+              token:this.jwtToken
             } ,
             data:{
               task:this.task
             }
-          }).then(function(response){
+          }).then(function({response}){
               console.log("respon gettodo",JSON.stringify(response)); 
+              self.todos.push(response.task)
           }).catch(function(err){
             console.log(err)
           })
@@ -65,14 +71,17 @@ window.onload = function(){
         
       },
       deleteTodo : function(todo){
+        let self = this
         console.log(todo)
         axios({
           method:'delete',
           url:`http://localhost:3000/todo/${todo._id}`,
-          
+          headers:{
+            token:this.jwtToken
+          }
         }).then(function(response){
             console.log("respon gettodo",JSON.stringify(response)); 
-            location.reload()
+            self.showTodo()
         }).catch(function(err){
           console.log(err)
         })
@@ -82,43 +91,52 @@ window.onload = function(){
         this.editTodo = todo
       },
       EditTodo:function(updateTask){
-        console.log("for server update",updateTask)
+        // console.log("for server update",updateTask)
+        let self = this
         axios({
           method:'put',
           url:`http://localhost:3000/todo/${updateTask._id}`,
-          
+          headers:{
+            token:this.jwtToken
+          },
           data:updateTask
         }).then(function(response){
             console.log("respon gettodo",JSON.stringify(response)); 
-            location.reload()
+            self.showTodo()
         }).catch(function(err){
           console.log(err)
         })
       },
       completedTodo : function(todo){
         console.log('completed',todo)
+        let self= this
         axios({
           method:'put',
           url:`http://localhost:3000/todo/completed/${todo._id}`,
-          
+          headers:{
+            token:this.jwtToken
+          },
           data:todo
         }).then(function(response){
             console.log("respon gettodo",JSON.stringify(response)); 
-            location.reload()
+            self.showTodo()
         }).catch(function(err){
           console.log(err)
         })
       },
       uncompletedTodo : function(todo){
         console.log('completed',todo)
+        let self= this
         axios({
           method:'put',
           url:`http://localhost:3000/todo/uncompleted/${todo._id}`,
-          
+          headers:{
+            token:this.jwtToken
+          },
           data:todo
         }).then(function(response){
             console.log("respon gettodo",JSON.stringify(response)); 
-            location.reload()
+            self.showTodo()
         }).catch(function(err){
           console.log(err)
         })
@@ -129,7 +147,7 @@ window.onload = function(){
         axios({
           method : 'post',
           url : 'http://localhost:3000/users/signup',
-          data:this.objUser
+          data:this.objUser,
         })
         .then(function (resSignUp) {
           console.log("resLogin",JSON.stringify(resSignUp));
