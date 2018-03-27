@@ -5,7 +5,10 @@ blockquote {
 }
 
 #jumbo {
-  background-color: #4abdac
+  background-color: white;
+  background-image: url('./assets/image1.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .jumbotron .container{
@@ -33,6 +36,7 @@ blockquote {
 #navstyle a {
   color:#fc4a1a;
 }
+
 
 
 

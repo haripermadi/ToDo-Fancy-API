@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16,87 +16,49 @@
 </head>
 <body>
   <div id="app">
-    <navbar :userid= "userId" @logoutbuttonclick="logOutButtonClick"></navbar>
-    <!-- main -->
-    
+    <nav class="navbar navbar-default" id="navstyle" >
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">DoDo</a>
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-use-continue-as="false" data-auto-logout-link="false" scope="public_profile,email" onlogin="checkLoginState()"></div></a></li>
+              <li><a>or</a></li>
+              <li><a href="" data-toggle="modal" data-target="#signInModal">Sign In</a></li>
+              <li><a href="" data-toggle="modal" data-target="#signUpModal">Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     <div class="jumbotron" id="jumbo"v-if="userId == null">
-      <div class="container">
+      <div class="container" id="welcome">
         <h1>Welcome to DoDo!</h1>
         <h3>DoDo - Do your to Do</h3>
-        <p>Life can feel overwhelming, but it doesn’t have to. Todoist lets you keep track of everything in one place, so you can get it all done and enjoy more peace of mind along the way.</p>
+        <p>Life can feel overwhelming, but it doesn’t have to.<br>
+          DoDo lets you keep track of everything in one place, <br>
+          so you can get it all done and enjoy more peace of mind along the way.</p>
         <p><a class="btn btn-lg" href="" role="button" data-toggle="modal" data-target="#signUpModal">Get Started- It's Free</a></p>
       </div>
     </div>
-    <div class="container" id="welcome" v-if="userId != null">
-        <h1>Welcome back !</h1>
-        <h5>DoDo - Do your to Do</h5>
-        <div>
-          <h3>Today Jokes:</h3>
-          <blockquote class="blockquote text-center" id="joke" >
-            <p class="mb-0">"{{jokes}}"</p>
-          </blockquote>
-        </div>
-      <div class="text-center">
-        <h2>What is your plan?</h2>
-      </div>
-      <hr>
-      <div>
-        <form>
-          <div class="form-group">
-            <label for="addTodo">New Todo</label>
-            <input type="text" class="form-control" placeholder="what your gonna do?" v-model="task">
-          </div>
-          <button type="submit" class="btn btn-default" @click="addTodo">Add</button>
-        </form>
-      </div>
-      <hr>
-      <h3>Waiting to be completed!</h3>
-      <div class="rows"  v-for="todo in todos">
-        <todo :todo="todo" @completedtodo="completedTodo" @gettodoforedit="getTodoForEdit" @deletetodo="deleteTodo"></todo>
-        <br/>        
-      </div>
-      <br/>
-      <hr>
-      <h3>Completed To Do</h3>
-      <div class="rows"  v-for="todo in completedTodos">
-        <complete-todo :todo="todo" @uncompletedtodo="uncompletedTodo" @deletetodo="deleteTodo"></complete-todo>
-      </div>          
-        
-    </div>
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <!-- Modal sign in -->
+    <login :userlogin="userLogin" @loginuser= "loginUser"></login>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit your Todo</h4>
-      </div>
-      <div class="modal-body">
-        <!-- <p>Some text in the modal.</p> -->
-        <form>
-            <div class="form-group">
-              <label for="addTodo">Task</label>
-              <!-- {{editTodo}} -->
-              <input type="text" class="form-control" v-model="editTodo.task">
-            </div>
-            <button type="button" class="btn btn-default" @click="EditTodo(editTodo)">Edit</button>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-<!-- Modal sign in -->
-<login :userlogin="userLogin" @loginuser= "loginUser"></login>
-
-<!-- Modal sign up -->
-<signup :objuser="objUser" @createuser="createUser"></signup>
-  <!-- end signup -->
+    <!-- Modal sign up -->
+    <signup :objuser="objUser" @createuser="createUser"></signup>
+      <!-- end signup -->
 
   </div>
 

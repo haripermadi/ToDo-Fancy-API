@@ -102,7 +102,7 @@ window.onload = function(){
           data:updateTask
         }).then(function(response){
             console.log("respon gettodo",JSON.stringify(response)); 
-            self.showTodo()
+            // self.showTodo()
         }).catch(function(err){
           console.log(err)
         })
@@ -168,7 +168,7 @@ window.onload = function(){
           console.log("resLogin",resSignIn.data.data.id);
           localStorage.setItem('token',resSignIn.data.data.token)
           localStorage.setItem('userId',resSignIn.data.data.id)
-          location.reload();
+          window.location.href="todo.html"
 
         })
         .catch(function (error) {
@@ -177,10 +177,11 @@ window.onload = function(){
         });
       },
       logOutButtonClick : function (){
+        // alert('log out')
         console.log('user log out')
         localStorage.clear()
-        // location.reload();
-        
+        console.log('data cleared')
+        window.location.href = "index.html";
       },
       joke: function(){
         let self= this

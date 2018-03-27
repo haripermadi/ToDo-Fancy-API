@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors')
-
+require('dotenv').load();
 
 const mongoose = require('mongoose')
 // mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')

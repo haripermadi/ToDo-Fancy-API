@@ -10,7 +10,7 @@ Vue.component('navbar',{
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">DoDo</a>
+          <a class="navbar-brand" href="index.html">DoDo</a>
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,7 +24,7 @@ Vue.component('navbar',{
             <li v-if="userid == null"><a href="" data-toggle="modal" data-target="#signInModal">Sign In</a></li>
             <li v-if="userid == null"><a href="" data-toggle="modal" data-target="#signUpModal">Sign Up</a></li>
             <li v-if="userid != null">
-              <a href="" @click="logOutButtonClick" >Sign Out</a>
+              <a><button class="btn btn-primary" @click="logOutButtonClick" style="margin-top='10px;">Sign Out</button></a>
             </li>
           </ul>
         </div>

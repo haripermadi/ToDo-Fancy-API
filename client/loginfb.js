@@ -35,7 +35,8 @@ function statusChangeCallback(response) {
         localStorage.setItem('token',resLogin.data.data.token)
         localStorage.setItem('userId',resLogin.data.data._id)
         localStorage.setItem('fbId',resLogin.data.data.fbId)
-        location.reload();
+        // location.reload();
+        window.location.href= 'todo.html'
         
     }).catch(function(err){
       console.log(err)
@@ -55,12 +56,13 @@ function checkLoginState() {
 
 function logout() {
   console.log('masuk sini')
-  FB.logout(function(response) {
+  window.FB.logout(function(response) {
     localStorage.clear()
     console.log('user log out fb')
     statusChangeCallback(response)
+    window.location.href="index.html"
   }) 
-  alert('hey')
+  // alert('hey')
   
   
 }
