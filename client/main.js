@@ -33,7 +33,7 @@ window.onload = function(){
         console.log('ini id user onload',this.userId)
         axios({
           method:'get',
-          url:`http://localhost:3000/todo/${this.userId}`,
+          url:`http://api-todo.haripermadi.com/todo/${this.userId}`,
           headers:{
             token:this.jwtToken
           }
@@ -51,7 +51,7 @@ window.onload = function(){
         if(token){
           axios({
             method:'post',
-            url:'http://localhost:3000/todo',
+            url:'http://api-todo.haripermadi.com/todo',
             headers:{
               id:this.userId,
               token:this.jwtToken
@@ -75,7 +75,7 @@ window.onload = function(){
         console.log(todo)
         axios({
           method:'delete',
-          url:`http://localhost:3000/todo/${todo._id}`,
+          url:`http://api-todo.haripermadi.com/todo/${todo._id}`,
           headers:{
             token:this.jwtToken
           }
@@ -95,7 +95,7 @@ window.onload = function(){
         let self = this
         axios({
           method:'put',
-          url:`http://localhost:3000/todo/${updateTask._id}`,
+          url:`http://api-todo.haripermadi.com/todo/${updateTask._id}`,
           headers:{
             token:this.jwtToken
           },
@@ -112,7 +112,7 @@ window.onload = function(){
         let self= this
         axios({
           method:'put',
-          url:`http://localhost:3000/todo/completed/${todo._id}`,
+          url:`http://api-todo.haripermadi.com/todo/completed/${todo._id}`,
           headers:{
             token:this.jwtToken
           },
@@ -129,7 +129,7 @@ window.onload = function(){
         let self= this
         axios({
           method:'put',
-          url:`http://localhost:3000/todo/uncompleted/${todo._id}`,
+          url:`http://api-todo.haripermadi.com/todo/uncompleted/${todo._id}`,
           headers:{
             token:this.jwtToken
           },
@@ -146,7 +146,7 @@ window.onload = function(){
         // alert(this.objUser)
         axios({
           method : 'post',
-          url : 'http://localhost:3000/users/signup',
+          url : 'http://api-todo.haripermadi.com/users/signup',
           data:this.objUser,
         })
         .then(function (resSignUp) {
@@ -161,7 +161,7 @@ window.onload = function(){
         console.log("login user===",this.userLogin)
         axios({
           method : 'post',
-          url : 'http://localhost:3000/users/signin',
+          url : 'http://api-todo.haripermadi.com/users/signin',
           data:this.userLogin
         })
         .then(function (resSignIn) {
