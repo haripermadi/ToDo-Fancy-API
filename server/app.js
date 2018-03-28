@@ -8,8 +8,8 @@ var cors = require('cors')
 require('dotenv').load();
 
 const mongoose = require('mongoose')
-// mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')
-mongoose.connect('mongodb://localhost:27017/todo')
+mongoose.connect('mongodb://todofancy:todo123@ds113179.mlab.com:13179/todofancy2018')
+// mongoose.connect('mongodb://localhost:27017/todo')
 
 const {authUser} = require('./middlewares/auth')
 const index = require('./routes/index');
