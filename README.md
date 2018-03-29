@@ -37,4 +37,4 @@ npm run dev
 
 #Demo
 
-For demon apps you can access [todo.haripermadi.com](http://todo.haripermadi.com)
+For demo apps you can access [todo.haripermadi.com](http://todo.haripermadi.com)
