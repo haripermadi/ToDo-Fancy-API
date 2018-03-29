@@ -9,7 +9,7 @@ module.exports={
     if(token){
       try{
       
-        let decoded = jwt.verify(token,process.env.SECRET)
+        let decoded = jwt.verify(token,'secret')
         next()
       }
       catch(err){

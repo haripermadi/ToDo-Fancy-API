@@ -54,7 +54,7 @@ module.exports={
         console.log("ini data user===",dataUser)
         let checkPass = bcrypt.compareSync(req.body.password,dataUser.password)
         if(checkPass){
-          let token = jwt.sign({id:dataUser._id,email:dataUser.email},process.env.SECRET)
+          let token = jwt.sign({id:dataUser._id,email:dataUser.email},'secret')
           res.status(200).json({
             message:"login success",
             data:{
@@ -95,7 +95,7 @@ module.exports={
               fbId : userFbToken.id
             },(err,newUser)=>{
               if(!err){
-                let token = jwt.sign({id:newUser._id},process.env.SECRET)
+                let token = jwt.sign({id:newUser._id},'secret')
                 res.status(200).json({
                 message:"login with facebook success",
                 data: ({
@@ -113,7 +113,7 @@ module.exports={
               }
             })
           }else{
-            let token = jwt.sign({id:user._id},process.env.SECRET)
+            let token = jwt.sign({id:user._id},'secret')
             res.status(200).json({
               message:"login with facebook success",
               data: ({
