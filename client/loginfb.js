@@ -26,7 +26,7 @@ function statusChangeCallback(response) {
     console.log("log in and authenticated")
     axios({
       method:'post',
-      url:'http://localhost:3000/users/fbsignin',
+      url:'http://api-todo.haripermadi.com/users/fbsignin',
       headers :{
         fb_token:response.authResponse.accessToken
       }
